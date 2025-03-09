@@ -1,0 +1,114 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: rgb(193, 193, 193) !important;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #ffa200;
+  color: black;
+  text-align: center;
+  padding: 10px;
+}
+
+#selectedDate{
+  margin: 20px;
+  height: 75px !important;
+  background-color: #ccc;
+  border: black 3px solid !important;
+  padding-left: 2% !important;
+  padding-right: 2% !important;
+  font-weight: bolder;
+}
+
+.change_date{
+  height: 75px !important;
+  width: 75px !important;
+  background-color: #ccc !important;
+  border: black 3px solid !important;
+}
+
+#Calendar {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.card_game {
+  width: 80%;
+  padding: 10px;
+  margin: 20px auto;
+  border: 1px solid #ccc;
+  background-color: #ebebeb !important;
+  border-radius: 8px;
+}
+
+.PlayersStats{
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.card_player {
+  border-top: 4px solid black !important;
+  border-radius: 10px; 
+  background-color: #f8f8f8;
+  box-sizing: border-box !important;
+  padding: 10px;
+  overflow: hidden;
+}
+
+.player_name{
+    padding: 10px;
+    min-height: 125px;
+}
+
+.player_stats{
+  margin-top: 15px;
+  font-weight: bolder;
+}
+
+.team_stats_li{
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+  border: black 3px solid !important;
+}
+
+.team_stats_li:hover {
+  transform: scale(1.02); 
+  transition: transform 0.5s ease; 
+}
+
+.progress-stacked{
+  border: black 3px solid !important;
+}
+
+.collapse{
+  color: black;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #ebebeb !important;
+}
+
+.player_card_full{
+  border: black 4px solid !important;
+  border-radius: 20px !important; 
+}
+
+.venue_li{
+  background-color: #ebebeb !important;
+  border-top: 2px solid black !important;
+  border-bottom: 2px solid black !important;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.quarter_li{
+  background-color: #ebebeb !important;
+  margin-top: 20px;
+}
