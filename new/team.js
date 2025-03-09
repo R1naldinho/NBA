@@ -16,7 +16,7 @@ let teamData
 
 function showTeam(teamId, year) {
     console.log('Team ID:', teamId);
-    fetch(`http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/${year}/teams/${teamId}?lang=en&region=us`)
+    fetch(`https://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/${year}/teams/${teamId}?lang=en&region=us`)
         .then(response => response.json())
         .then(data => {
             console.log(data);
@@ -80,11 +80,11 @@ function loadInfo() {
             target.classList.add('show', 'active');
         });
     });
-    record(teamData.record.$ref);
+    record(teamData.record.$ref.replace('http://', 'https://'));
 
-    results(teamData.events.$ref);
-    roster(teamData.athletes.$ref, teamData.coaches.$ref);
-    injuries(teamData.injuries.$ref);
+    results(teamData.events.$ref.replace('http://', 'https://'));
+    roster(teamData.athletes.$ref.replace('http://', 'https://'), teamData.coaches.$ref.replace('http://', 'https://'));
+    injuries(teamData.injuries.$ref.replace('http://', 'https://'));
     venue();
 }
 
@@ -125,16 +125,16 @@ function displayResults(events) {
     resultsDiv.innerHTML = '';
 
     const fetchEventDetails = (event) => {
-        return fetch(event.$ref)
+        return fetch(event.$ref.replace('http://', 'https://'))
             .then(eventResponse => eventResponse.json())
             .then(eventData => {
                 return Promise.all([
-                    fetch(eventData.competitions[0].status.$ref).then(response => response.json()),
-                    fetch(eventData.competitions[0].competitors[0].team.$ref).then(response => response.json()),
-                    fetch(eventData.competitions[0].competitors[0].score.$ref).then(response => response.json()),
-                    fetch(eventData.competitions[0].competitors[1].team.$ref).then(response => response.json()),
-                    fetch(eventData.competitions[0].competitors[1].score.$ref).then(response => response.json()),
-                    fetch(eventData.seasonType.$ref).then(response => response.json())
+                    fetch(eventData.competitions[0].status.$ref.replace('http://', 'https://')).then(response => response.json()),
+                    fetch(eventData.competitions[0].competitors[0].team.$ref.replace('http://', 'https://')).then(response => response.json()),
+                    fetch(eventData.competitions[0].competitors[0].score.$ref.replace('http://', 'https://')).then(response => response.json()),
+                    fetch(eventData.competitions[0].competitors[1].team.$ref.replace('http://', 'https://')).then(response => response.json()),
+                    fetch(eventData.competitions[0].competitors[1].score.$ref.replace('http://', 'https://')).then(response => response.json()),
+                    fetch(eventData.seasonType.$ref.replace('http://', 'https://')).then(response => response.json())
                 ]).then(([statusData, HomeTeam, HomeTeamScore, AwayTeam, AwayTeamScore, SeasonType]) => {
                     return {
                         statusData,
@@ -246,7 +246,7 @@ function roster(linkA, linkC) {
         .then(data => {
             console.log(data);
             Promise.all(data.items.map(item =>
-                fetch(item.$ref)
+                fetch(item.$ref.replace('http://', 'https://'))
                     .then(response => response.json())
                     .then(athlete => {
                         return `
@@ -278,7 +278,7 @@ function roster(linkA, linkC) {
         .then(data => {
             console.log(data);
             const coachCards = data.items.map(coach =>
-                fetch(coach.$ref)
+                fetch(coach.$ref.replace('http://', 'https://'))
                     .then(response => response.json())
                     .then(coach => {
                         return `
@@ -312,7 +312,7 @@ function injuries(link) {
         .then(data => {
             console.log(data);
             Promise.all(data.items.map(item =>
-                fetch(item.$ref)
+                fetch(item.$ref.replace('http://', 'https://'))
                     .then(response => response.json())
                     .then(injury => {
                         const type = injury.details.type;
@@ -321,7 +321,7 @@ function injuries(link) {
                         const description = injury.shortComment;
                         const date = injury.date;
                         const returnDate = injury.details.returnDate;
-                        return fetch(injury.athlete.$ref)
+                        return fetch(injury.athlete.$ref.replace('http://', 'https://'))
                             .then(response => response.json())
                             .then(athlete => {
                                 const name = athlete.displayName;

@@ -52,16 +52,16 @@ function displayResults(events) {
     resultsDiv.innerHTML = '';
 
     const fetchEventDetails = (event) => {
-        return fetch(event.$ref)
+        return fetch(event.$ref.replace('http://', 'https://'))
             .then(eventResponse => eventResponse.json())
             .then(eventData => {
                 return Promise.all([
-                    fetch(eventData.competitions[0].status.$ref).then(response => response.json()),
-                    fetch(eventData.competitions[0].competitors[0].team.$ref).then(response => response.json()),
-                    fetch(eventData.competitions[0].competitors[0].score.$ref).then(response => response.json()),
-                    fetch(eventData.competitions[0].competitors[1].team.$ref).then(response => response.json()),
-                    fetch(eventData.competitions[0].competitors[1].score.$ref).then(response => response.json()),
-                    fetch(eventData.seasonType.$ref).then(response => response.json())
+                    fetch(eventData.competitions[0].status.$ref.replace('http://', 'https://')).then(response => response.json()),
+                    fetch(eventData.competitions[0].competitors[0].team.$ref.replace('http://', 'https://')).then(response => response.json()),
+                    fetch(eventData.competitions[0].competitors[0].score.$ref.replace('http://', 'https://')).then(response => response.json()),
+                    fetch(eventData.competitions[0].competitors[1].team.$ref.replace('http://', 'https://')).then(response => response.json()),
+                    fetch(eventData.competitions[0].competitors[1].score.$ref.replace('http://', 'https://')).then(response => response.json()),
+                    fetch(eventData.seasonType.$ref.replace('http://', 'https://')).then(response => response.json())
                 ]).then(([statusData, HomeTeam, HomeTeamScore, AwayTeam, AwayTeamScore, SeasonType]) => {
                     return {
                         statusData,
@@ -110,7 +110,7 @@ function displayResults(events) {
                                 </div>
                                 <hr>
                             `;
-                        } else if (statusData.type.name === 'STATUS_IN_PROGRESS') { // LIVE
+                        } else if (statusData.type.name === 'STATUS_IN_PROGRESS' || statusData.type.name === 'STATUS_HALFTIME') { // LIVE
                             resultsDiv.innerHTML += `
                                 <h3 style="text-align: center; color: red;">LIVE ${statusData.type.detail}</h3>
                                 <div class="result" style="display: flex; align-items: center; justify-content: space-between;">

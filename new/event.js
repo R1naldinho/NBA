@@ -4,11 +4,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const id_event = urlParams.get('idEvent');
 
-    fetch(`http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/events/${id_event}?lang=en&region=us`)
+    fetch(`https://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/events/${id_event}?lang=en&region=us`)
         .then(response => response.json())
         .then(data => {
-            const homeTeamRef = data.competitions[0].competitors.find(c => c.homeAway === 'home').team.$ref;
-            const awayTeamRef = data.competitions[0].competitors.find(c => c.homeAway === 'away').team.$ref;
+            const homeTeamRef = data.competitions[0].competitors.find(c => c.homeAway === 'home').team.$ref.replace('http:', 'https:');
+            const awayTeamRef = data.competitions[0].competitors.find(c => c.homeAway === 'away').team.$ref.replace('http:', 'https:');
 
             Promise.all([fetch(homeTeamRef).then(res => res.json()), fetch(awayTeamRef).then(res => res.json())])
                 .then(([homeTeam, awayTeam]) => {
@@ -88,10 +88,11 @@ document.addEventListener('DOMContentLoaded', () => {
             eventDetailsDiv.innerHTML = '<p>Error loading event details.</p>';
         });
 });
+
 function quarterResults(data, homeTeam, awayTeam) {
     Promise.all([
-        fetch(data.competitions[0].competitors[0].linescores.$ref).then(response => response.json()),
-        fetch(data.competitions[0].competitors[1].linescores.$ref).then(response => response.json())
+        fetch(data.competitions[0].competitors[0].linescores.$ref.replace('http:', 'https:')).then(response => response.json()),
+        fetch(data.competitions[0].competitors[1].linescores.$ref.replace('http:', 'https:')).then(response => response.json())
     ])
         .then(([homeTeamScoresData, awayTeamScoresData]) => {
             const awayTeamScores = awayTeamScoresData.items.map(item => item.displayValue);
@@ -141,7 +142,7 @@ function info(data) {
     const infoDiv = document.getElementById('info');
     infoDiv.innerHTML = '';
     if (data.competitions[0].officials) {
-        fetch(data.competitions[0].officials.$ref)
+        fetch(data.competitions[0].officials.$ref.replace('http:', 'https:'))
             .then(response => response.json())
             .then(dataOfficials => {
                 console.log(dataOfficials);
@@ -175,7 +176,7 @@ function info(data) {
 }
 
 function teamRecord(homeTeam, awayTeam) {
-    fetch(homeTeam.record.$ref)
+    fetch(homeTeam.record.$ref.replace('http:', 'https:'))
         .then(response => response.json())
         .then(data => {
             console.log(data);
@@ -185,7 +186,7 @@ function teamRecord(homeTeam, awayTeam) {
         })
         .catch(error => console.error(error));
 
-    fetch(awayTeam.record.$ref)
+    fetch(awayTeam.record.$ref.replace('http:', 'https:'))
         .then(response => response.json())
         .then(data => {
             console.log(data);
@@ -197,14 +198,14 @@ function teamRecord(homeTeam, awayTeam) {
 }
 
 function score(data) {
-    fetch(data.competitions[0].competitors[0].score.$ref)
+    fetch(data.competitions[0].competitors[0].score.$ref.replace('http:', 'https:'))
         .then(response => response.json())
         .then(data => {
             console.log(data);
             document.getElementById('homeTeam_score').innerHTML = `${data.displayValue}`;
         })
         .catch(error => console.error(error));
-    fetch(data.competitions[0].competitors[1].score.$ref)
+    fetch(data.competitions[0].competitors[1].score.$ref.replace('http:', 'https:'))
         .then(response => response.json())
         .then(data => {
             console.log(data);

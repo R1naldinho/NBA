@@ -3,7 +3,7 @@ window.onload = function() {
     .then(response => response.json())
     .then(data => {
         console.log(data);
-        fetch(data.season.leaders.$ref)
+        fetch(data.season.leaders.$ref.replace('http://', 'https://'))
         .then(response => response.json())
         .then(data => {
             console.log(data);
@@ -29,10 +29,10 @@ window.onload = function() {
                     </div>
                 `;
                 let leaderPromises = selectedCategory.leaders.map((leader, index) => {
-                    return fetch(leader.athlete.$ref)
+                    return fetch(leader.athlete.$ref.replace('http://', 'https://'))
                     .then(response => response.json())
                     .then(data => {
-                        return fetch(data.team.$ref)
+                        return fetch(data.team.$ref.replace('http://', 'https://'))
                         .then(response => response.json())
                         .then(teamData => {
                             let displayValue = leader.displayValue;
