@@ -20,13 +20,13 @@ function showAthlete(athleteId, year) {
             if (athlete.draft) {
                 let draft = athlete.draft;
 
-                fetch(draft.team.$ref)
+                fetch(draft.team.$ref.replace('http:', 'https:'))
                     .then(response => response.json())
                     .then(team => {
                         draftTeam = team;
 
                         let currentTeam;
-                        fetch(athlete.team.$ref)
+                        fetch(athlete.team.$ref.replace('http:', 'https:'))
                             .then(response => response.json())
                             .then(team => {
                                 currentTeam = team;
@@ -70,7 +70,7 @@ function showAthlete(athleteId, year) {
 
                                 // Fetch statistics and insert in the stats-row
                                 if (athlete.statistics && athlete.statistics.$ref) {
-                                    fetch(athlete.statistics.$ref)
+                                    fetch(athlete.statistics.$ref.replace('http:', 'https:'))
                                         .then(response => response.json())
                                         .then(stats => {
                                             const categories = stats.splits?.categories || [];

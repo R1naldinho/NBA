@@ -2,13 +2,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const teamsContainer = document.getElementById("teams");
   const currentYear = new Date().getFullYear();
 
-  const eastUrl = `http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/${currentYear}/types/3/groups/5/teams?lang=en&region=us`;
-  const westUrl = `http://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/${currentYear}/types/3/groups/6/teams?lang=en&region=us`;
+  const eastUrl = `https://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/${currentYear}/types/3/groups/5/teams?lang=en&region=us`;
+  const westUrl = `https://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/seasons/${currentYear}/types/3/groups/6/teams?lang=en&region=us`;
 
   async function fetchTeamDetails(url) {
     const res = await fetch(url);
     const data = await res.json();
-    const teamRefs = data.items.map(item => item.$ref);
+    const teamRefs = data.items.map(item => item.$ref.replace('http:', 'https:'));
 
     const teamDetails = await Promise.all(
       teamRefs.map(ref =>

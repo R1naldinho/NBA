@@ -20,7 +20,7 @@ window.onload = () => {
             // Fetch team data with logos
             const teamsWithLogos = await Promise.all(data.standings.map(async (entry) => {
                 try {
-                    const teamRes = await fetch(entry.team.$ref);
+                    const teamRes = await fetch(entry.team.$ref.replace('http:', 'https:'));
                     const teamData = await teamRes.json();
                     return { ...entry, teamData };
                 } catch {
