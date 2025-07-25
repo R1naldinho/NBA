@@ -97,11 +97,25 @@ function quarterResults(data, homeTeam, awayTeam) {
         .then(([homeTeamScoresData, awayTeamScoresData]) => {
             const awayTeamScores = awayTeamScoresData.items.map(item => item.displayValue);
             const homeTeamScores = homeTeamScoresData.items.map(item => item.displayValue);
-            const awayTeamTotal = awayTeamScores.reduce((acc, score) => acc + parseInt(score), 0);
-            const homeTeamTotal = homeTeamScores.reduce((acc, score) => acc + parseInt(score), 0);
 
-            const periods = awayTeamScores.map((_, index) => index < 4 ? 'Q' + (index + 1) : 'OT' + (index - 3));
+            const periods = ['Q1', 'Q2', 'Q3', 'Q4'];
+            const maxPeriods = Math.max(awayTeamScores.length, homeTeamScores.length);
+            if (maxPeriods > 4) {
+                for (let i = 4; i < maxPeriods; i++) {
+                    periods.push('OT' + (i - 3));
+                }
+            }
             periods.push('TOT');
+
+            while (awayTeamScores.length < periods.length - 1) {
+                awayTeamScores.push('-');
+            }
+            while (homeTeamScores.length < periods.length - 1) {
+                homeTeamScores.push('-');
+            }
+
+            const awayTeamTotal = awayTeamScores.reduce((acc, score) => acc + (score !== '-' ? parseInt(score) : 0), 0);
+            const homeTeamTotal = homeTeamScores.reduce((acc, score) => acc + (score !== '-' ? parseInt(score) : 0), 0);
 
             const resultsHTML = `
                 <table style="width: 100%; text-align: center;">

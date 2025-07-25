@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NBA Leaders</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #ffffff;
+            /* bianco */
+            color: #000000;
+            /* testo nero globale */
+            margin: 0;
+            padding: 20px;
+        }
+
+        .category {
+            background: #f9f9f9;
+            /* molto chiaro */
+            border-radius: 8px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+            margin: 1rem 0;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .category:hover {
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .category__name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #000000;
+            /* nero */
+        }
+
+        .category-header {
+            margin-bottom: 1rem;
+            border-bottom: 3px solid #cccccc;
+            /* grigio chiaro */
+        }
+
+        .category-header h2 {
+            margin: 0;
+            padding-bottom: 5px;
+            color: #000000;
+            /* nero */
+        }
+
+        #leaders {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .leader {
+            display: flex;
+            align-items: center;
+            background: #ffffff;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            padding: 10px 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+        }
+
+        .leader:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .leader__rank {
+            font-weight: 700;
+            font-size: 1.5rem;
+            width: 40px;
+            text-align: center;
+            color: #000000;
+            /* nero */
+        }
+
+        .leader__name {
+            flex: 1 1 auto;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding-left: 10px;
+            color: #000000;
+            /* nero */
+        }
+
+        .leader__team {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-right: 15px;
+            user-select: none;
+        }
+
+        .leader__team-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 6px;
+            object-fit: contain;
+        }
+
+        .leader__team-name {
+            font-weight: 500;
+            font-size: 1rem;
+            color: #000000;
+            /* nero */
+        }
+
+        .leader__value {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #000000;
+            /* nero */
+            min-width: 50px;
+            text-align: right;
+        }
+
+        @media (max-width: 600px) {
+            .leader {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .leader__team {
+                margin: 8px 0;
+            }
+
+            .leader__value {
+                align-self: flex-end;
+            }
+        }
+    </style>
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <a class="navbar-brand" href="./index.html">
+            <img src="https://a.espncdn.com/i/teamlogos/leagues/500/nba.png" width="30" height="30" alt="NBA Logo" />
+            NBA
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="./index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="./teams.html">Teams</a></li>
+                <li class="nav-item"><a class="nav-link" href="./statsLeaders.html">Stats Leaders</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container mt-5 pt-5">
+        <div id="leaders"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="./statsLeaders.js"></script>
+</body>
+
+</html>
+</li>

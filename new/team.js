@@ -188,7 +188,7 @@ function displayResults(events) {
                                 </div>
                                 <hr>
                             `;
-                        } else if (statusData.type.name === 'STATUS_LIVE') { // BO
+                        } else if (statusData.type.name === 'STATUS_LIVE') {
                             resultsDiv.innerHTML += `
                                 <div class="result" style="display: flex; align-items: center; justify-content: space-between;">
                                     <div onclick="window.location.href='team.html?teamId=${AwayTeam.id}'" style="display: flex; align-items: center; flex: 1;">
